@@ -45,8 +45,8 @@ async function getCourses(){
         .or([{author: "Bhanu"}, {isPublished: true}])
         .limit(10)
         .sort({name: 1})
-        // .select({name: 1});
-        .count();
+        .select({name: 1});
+        // .count();
     mongoLog(courses);
 }
 
