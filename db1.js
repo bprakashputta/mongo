@@ -3,10 +3,10 @@ const mongoLogger = require('debug')('mongo:log');
 
 mongoose.connect("mongodb://localhost/mongo-exercises")
     .then(()=>{
-        console.log("Connected to Mongo-Excercises Database");
+        mongoLogger("Connected to Mongo-Excercises Database");
     })
     .catch(error => {
-        console.log("Couldn't connect to database: ", error.message);
+        mongoLogger("Couldn't connect to database: ", error.message);
     });
 
 const courseSchema = new mongoose.Schema({
