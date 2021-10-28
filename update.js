@@ -3,10 +3,10 @@ const mongoLog = require('debug')('mongo:log');
 
 mongoose.connect('mongodb://localhost/mongo-exercises')
     .then(()=>{
-        mongoLog("Connected to MongoDB");
+        mongoLog('Connected to MongoDB');
     })
-    .catch((error)=>{
-        mongoLog("Ran into Error: ", error.message);
+    .catch(error =>{
+        mongoLog("Ran into error: ", error.message);
     });
 
 const courseSchema = new mongoose.Schema({
@@ -18,18 +18,9 @@ const courseSchema = new mongoose.Schema({
     price: Number,
 });
 
-const Course = mongoose.model('Course', courseSchema);
-// async function displayCourses(){
-//     const courses = await Course
-//         .find({isPublished: true})
-//         .or([{price: {$gte: 15} }, {name: /.*by.*/}]);
-//     mongoLog(courses)
-// }
-//
-// displayCourses();
+const Course = new mongoose.model('Course', courseSchema);
 
-
-async function updateCourse(id){
+async function updateCourse1(id){
     const course = await Course.findById(id);
     mongoLog(course);
     if(!course){
@@ -42,4 +33,15 @@ async function updateCourse(id){
     mongoLog(result);
 }
 
-updateCourse("5a68ff090c553064a218a547");
+async function updateCourse2(id){
+    const result = await Course.findByIdAndUpdate(id,{
+        $set:{
+            author: "Tharun",
+            isPublished: "true"
+        }
+    }, {new: true});
+    mongoLog( result );
+}
+
+
+updateCourse2('617a469ef43fb7d43b7d8d8b');
